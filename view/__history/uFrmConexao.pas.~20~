@@ -1,0 +1,74 @@
+unit uFrmConexao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  TfrmConexao = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    edtConexao: TEdit;
+    btnOpenDialog: TBitBtn;
+    OpenDialog1: TOpenDialog;
+    btnConectar: TBitBtn;
+    procedure btnConectarClick(Sender: TObject);
+    procedure btnOpenDialogClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure Conectar;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConexao: TfrmConexao;
+
+implementation
+
+{$R *.dfm}
+
+uses uConexao, uConfiguraIni;
+
+procedure TfrmConexao.btnConectarClick(Sender: TObject);
+begin
+  Conectar;
+end;
+
+procedure TfrmConexao.btnOpenDialogClick(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+  begin
+    edtConexao.Text := OpenDialog1.FileName;
+  end;
+end;
+
+procedure TfrmConexao.Conectar;
+var
+  vFileName: String;
+begin
+  if edtConexao.Text = EmptyStr then
+  begin
+    MessageBox(handle,'Favor informar a base de dados.','Atenção', MB_ICONWARNING + MB_OK);
+    edtConexao.SetFocus;
+  end
+  else
+  begin
+    try
+      vFileName := ExtractFilePath(Application.ExeName) + 'ProjetoCM.ini';
+      TConexao.DataBasePath := edtConexao.Text;
+      TConexao.Instance;
+      TConfiguraIni.SetValorIni(vFileName, 'CONFIGURACAO','LocalDB', edtConexao.Text);
+      MessageBox(handle,'Conexão realizada com sucesso!','Conexão banco de dados', MB_ICONINFORMATION + MB_OK);
+    except on E: Exception do
+      begin
+        MessageBox(handle,PWideChar(E.Message),'Erro', MB_ICONERROR + MB_OK);
+        edtConexao.SetFocus;
+      end;
+    end;
+  end;
+end;
+
+end.

@@ -1,0 +1,128 @@
+unit uConexaoAPI;
+
+interface
+
+uses
+  REST.Client, uPostsDAO, System.SysUtils, System.Classes, Vcl.Forms,
+  System.JSON, uPostModel;
+
+type
+  TConexaoAPI = class
+  private
+    class var FClientAPI: TRESTClient;
+    class var FResponseAPI: TRESTResponse;
+    class var FRequestAPI: TRESTRequest;
+    class var FTotalRegistros: Integer;
+    class var FProgressStep: Integer;
+    class procedure RegistrarEvento(aInformacao: String); static;
+    class procedure SetClientAPI(const Value: TRESTClient); static;
+    class procedure SetRequestAPI(const Value: TRESTRequest); static;
+    class procedure SetResposeAPI(const Value: TRESTResponse); static;
+  public
+    class function ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
+    class procedure SincronizarAPI;
+    class property ProgressStep: Integer read FProgressStep;
+    class property TotalRegistros: Integer read FTotalRegistros;
+    class property ClientAPI: TRESTClient read FClientAPI write SetClientAPI;
+    class property RequestAPI: TRESTRequest read FRequestAPI write SetRequestAPI;
+    class property ResponseAPI: TRESTResponse read FResponseAPI write SetResposeAPI;
+  end;
+
+implementation
+
+{ TConexaoAPI }
+
+uses uFrmPosts, uPostController;
+
+class function TConexaoAPI.ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
+begin
+  try
+    ClientAPI   := TRESTClient.Create(aBaseUrl);
+    ResponseAPI := TRESTResponse.Create(nil);
+    RequestAPI  := TRESTRequest.Create(nil);
+    RequestAPI.Response := ResponseAPI;
+    RequestAPI.Client   := ClientAPI;
+    RequestAPI.Resource := aResouce;
+    RequestAPI.Execute;
+    Result := True;
+  except on E: Exception do
+    begin
+      aError := 'Erro ao conectar com a aplicação' + sLineBreak + E.Message;
+      RegistrarEvento(aError);
+      Result := False;
+    end;
+  end;
+end;
+
+class procedure TConexaoAPI.RegistrarEvento(aInformacao: String);
+var
+  LArquivo: TextFile;
+  LLocalArquivo: string;
+begin
+  TThread.CreateAnonymousThread(
+    procedure()
+    begin
+      TThread.Synchronize(TThread.CurrentThread,
+      procedure()
+      begin
+        LLocalArquivo := ExtractFilePath(Application.ExeName) + 'Auditoria.txt';
+        AssignFile(LArquivo, LLocalArquivo);
+        if not FileExists(LLocalArquivo) then
+          Rewrite(LArquivo);
+        Append(LArquivo);
+        Writeln(LArquivo, DateTimeToStr(Now) + ' - ' + aInformacao);
+        CloseFile(LArquivo);
+      end);
+    end).Start;
+end;
+
+class procedure TConexaoAPI.SetClientAPI(const Value: TRESTClient);
+begin
+  FClientAPI := Value;
+end;
+
+class procedure TConexaoAPI.SetRequestAPI(const Value: TRESTRequest);
+begin
+  FRequestAPI := Value;
+end;
+
+class procedure TConexaoAPI.SetResposeAPI(const Value: TRESTResponse);
+begin
+  FResponseAPI := Value;
+end;
+
+class procedure TConexaoAPI.SincronizarAPI;
+var
+  i: Integer;
+  LError: String;
+  oJson: TJSONObject;
+  JsonArray: TJSONArray;
+  oPostModel: TPostsModel;
+  oPostController: TPostController;
+begin
+  oPostModel := TPostsModel.Create;
+  oPostController := TPostController.Create;
+  JsonArray := TJSONObject.ParseJSONValue(ResponseAPI.Content) as TJSONArray;
+  oJsonItem :=
+  try
+    TotalRegistros := JsonArray.Count;
+    for i := 0 to JsonArray.Count - 1 do
+    begin
+      ProgressStep := i;
+      oJson := JSONArray.Items[i] as TJSONObject;
+      with oPostModel do
+      begin
+        UserId := oJson.GetValue<Integer>('userId');
+        ID     := oJson.GetValue<Integer>('id');
+        Title  := oJson.GetValue<string>('title');
+        Body   := oJson.GetValue<string>('body');
+      end;
+      oPostController.Inserir(oPostModel, LError);
+    end;
+  finally
+    FreeAndNil(JSONArray);
+  end;
+
+end;
+
+end.

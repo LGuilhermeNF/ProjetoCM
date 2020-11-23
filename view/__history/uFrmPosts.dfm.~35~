@@ -1,0 +1,275 @@
+object frmPosts: TfrmPosts
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  ClientHeight = 428
+  ClientWidth = 583
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object pnlRodape: TPanel
+    Left = 0
+    Top = 387
+    Width = 583
+    Height = 41
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 1
+    DesignSize = (
+      583
+      41)
+    object btnFechar: TButton
+      Left = 488
+      Top = 6
+      Width = 75
+      Height = 25
+      Anchors = [akTop, akRight, akBottom]
+      Caption = 'Fechar'
+      TabOrder = 0
+      OnClick = btnFecharClick
+    end
+  end
+  object pgcPrincipal: TPageControl
+    Left = 0
+    Top = 0
+    Width = 583
+    Height = 387
+    ActivePage = tbDados
+    Align = alClient
+    TabOrder = 0
+    object tbPesq: TTabSheet
+      Caption = 'tbPesq'
+      object pnlFiltro: TPanel
+        Left = 0
+        Top = 0
+        Width = 575
+        Height = 60
+        Align = alTop
+        BevelOuter = bvNone
+        Color = clInactiveCaption
+        ParentBackground = False
+        TabOrder = 0
+        DesignSize = (
+          575
+          60)
+        object edtPesquisar: TLabeledEdit
+          Left = 16
+          Top = 27
+          Width = 454
+          Height = 21
+          Anchors = [akLeft, akTop, akRight]
+          EditLabel.Width = 69
+          EditLabel.Height = 13
+          EditLabel.Caption = 'T'#237'tulo do Post:'
+          TabOrder = 0
+        end
+        object btnPesquisar: TButton
+          Left = 485
+          Top = 25
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Pesquisar'
+          TabOrder = 1
+          OnClick = btnPesquisarClick
+        end
+      end
+      object pnlBtnsPesq: TPanel
+        Left = 0
+        Top = 317
+        Width = 575
+        Height = 42
+        Align = alBottom
+        BevelOuter = bvNone
+        Color = clInactiveCaption
+        ParentBackground = False
+        TabOrder = 1
+        DesignSize = (
+          575
+          42)
+        object btnNovo: TButton
+          Left = 323
+          Top = 9
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Novo'
+          TabOrder = 0
+          OnClick = btnNovoClick
+        end
+        object btnDetalhar: TButton
+          Left = 404
+          Top = 9
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Detalhar'
+          TabOrder = 1
+          OnClick = btnDetalharClick
+        end
+        object btnExcluir: TButton
+          Left = 485
+          Top = 9
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Excluir'
+          TabOrder = 2
+          OnClick = btnExcluirClick
+        end
+      end
+      object DBGrid1: TDBGrid
+        AlignWithMargins = True
+        Left = 3
+        Top = 63
+        Width = 569
+        Height = 251
+        Align = alClient
+        DataSource = dsPesq
+        DrawingStyle = gdsGradient
+        Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+        TabOrder = 2
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnDblClick = DBGrid1DblClick
+      end
+    end
+    object tbDados: TTabSheet
+      Caption = 'tbDados'
+      ImageIndex = 1
+      object lblCodigoUsuario: TLabel
+        Left = 178
+        Top = 24
+        Width = 76
+        Height = 13
+        Caption = 'C'#243'digo Usu'#225'rio:'
+      end
+      object lblTituloPost: TLabel
+        Left = 16
+        Top = 80
+        Width = 73
+        Height = 13
+        Caption = 'T'#237'tulo do Post::'
+      end
+      object lblCodigoPost: TLabel
+        Left = 16
+        Top = 24
+        Width = 61
+        Height = 13
+        Caption = 'C'#243'digo Post:'
+      end
+      object lblBodyPost: TLabel
+        Left = 16
+        Top = 149
+        Width = 63
+        Height = 13
+        Caption = 'Inserir Post::'
+      end
+      object pnlBtnsCad: TPanel
+        Left = 0
+        Top = 318
+        Width = 575
+        Height = 41
+        Align = alBottom
+        BevelOuter = bvNone
+        Color = clInactiveCaption
+        ParentBackground = False
+        TabOrder = 0
+        DesignSize = (
+          575
+          41)
+        object btnListar: TButton
+          Left = 243
+          Top = 8
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Listar'
+          TabOrder = 3
+          OnClick = btnListarClick
+        end
+        object btnAlterar: TButton
+          Left = 324
+          Top = 8
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Alterar'
+          TabOrder = 0
+          OnClick = btnAlterarClick
+        end
+        object btnGravar: TBitBtn
+          Left = 405
+          Top = 8
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Gravar'
+          TabOrder = 1
+          OnClick = btnGravarClick
+        end
+        object btnCancelar: TBitBtn
+          Left = 484
+          Top = 8
+          Width = 75
+          Height = 25
+          Anchors = [akTop, akRight, akBottom]
+          Caption = 'Cancelar'
+          TabOrder = 2
+          OnClick = btnCancelarClick
+        end
+      end
+      object edtCodigoPost: TEdit
+        Left = 16
+        Top = 43
+        Width = 155
+        Height = 21
+        Enabled = False
+        TabOrder = 4
+      end
+      object edtTituloPost: TEdit
+        Left = 16
+        Top = 99
+        Width = 317
+        Height = 21
+        CharCase = ecUpperCase
+        TabOrder = 2
+      end
+      object edtCodigoUsuario: TEdit
+        Left = 178
+        Top = 43
+        Width = 155
+        Height = 21
+        CharCase = ecUpperCase
+        NumbersOnly = True
+        TabOrder = 1
+      end
+      object memPost: TMemo
+        Left = 16
+        Top = 168
+        Width = 317
+        Height = 121
+        TabOrder = 3
+      end
+    end
+  end
+  object dsPesq: TDataSource
+    Left = 308
+    Top = 272
+  end
+end

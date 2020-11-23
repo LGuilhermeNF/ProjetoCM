@@ -1,0 +1,80 @@
+unit uPostModel;
+
+interface
+
+uses
+  System.JSON;
+
+type
+  TPostsModel = class
+  private
+    FUserID: Integer;
+    FBody: String;
+    FTitle: String;
+    FID: Integer;
+    procedure SetBody(const Value: String);
+    procedure SetID(const Value: Integer);
+    procedure SetUserID(const Value: Integer);
+    procedure SetTitle(const Value: String);
+    { private declarations }
+  public
+    { public declarations }
+    function ConverterObjetoJSON: string;
+    function ConverterJsonObjeto(aJSON: string): TPostsModel;
+    property UserID: Integer read FUserID write SetUserID;
+    property ID: Integer read FID write SetID;
+    property Title: String read FTitle write SetTitle;
+    property Body: String read FBody write SetBody;
+  end;
+
+implementation
+
+{ TPosts }
+
+function TPostsModel.ConverterJsonObjeto(aJSON: string): TPostsModel;
+var
+  objUsuario: TJSONObject;
+begin
+  Result := Self;
+  //Result := TJSON.JsonToObject<TUsuario>(aValue);
+  if (Trim(aValue) <> EmptyStr) then
+  begin
+    objUsuario := TJSONObject.ParseJSONValue(aValue) as TJSONObject;
+    try
+      Self.FPostID := objUsuario.GetValue<Integer>('postId');
+      Self.FID     := objUsuario.GetValue<Integer>('id');
+      Self.Name    := objUsuario.GetValue<string>('name');
+      Self.Email   := objUsuario.GetValue<string>('email');
+      Self.Body    := objUsuario.GetValue<string>('body');
+    finally
+      FreeAndNil(objUsuario);
+    end;
+  end;
+end;
+
+function TPostsModel.ConverterObjetoJSON: string;
+begin
+
+end;
+
+procedure TPostsModel.SetBody(const Value: String);
+begin
+  FBody := Value;
+end;
+
+procedure TPostsModel.SetID(const Value: Integer);
+begin
+  FID := Value;
+end;
+
+procedure TPostsModel.SetUserID(const Value: Integer);
+begin
+  FUserID := Value;
+end;
+
+procedure TPostsModel.SetTitle(const Value: String);
+begin
+  FTitle := Value;
+end;
+
+end.

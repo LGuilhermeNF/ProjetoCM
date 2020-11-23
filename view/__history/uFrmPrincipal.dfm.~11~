@@ -1,0 +1,77 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Align = alClient
+  BorderStyle = bsSingle
+  Caption = 'Projeto Casa Magalh'#227'es'
+  ClientHeight = 460
+  ClientWidth = 640
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 96
+    Top = 64
+    Width = 433
+    Height = 321
+    TabOrder = 0
+    object btnSincronizarAPI: TBitBtn
+      Left = 232
+      Top = 72
+      Width = 153
+      Height = 97
+      Caption = 'Sincronizar API'
+      TabOrder = 0
+    end
+    object btnCadastroPost: TBitBtn
+      Left = 32
+      Top = 72
+      Width = 153
+      Height = 97
+      Caption = 'Cadastar Posts'
+      TabOrder = 1
+      WordWrap = True
+      OnClick = btnCadastroPostClick
+    end
+    object btnSair: TBitBtn
+      Left = 134
+      Top = 192
+      Width = 153
+      Height = 97
+      Caption = 'Sair'
+      TabOrder = 2
+      OnClick = btnSairClick
+    end
+  end
+  object MainMenu1: TMainMenu
+    Left = 216
+    Top = 16
+    object Cadastro1: TMenuItem
+      Caption = 'Cadastro'
+      object InserirPost1: TMenuItem
+        Caption = 'Posts'
+        OnClick = InserirPost1Click
+      end
+    end
+    object Movimento1: TMenuItem
+      Caption = 'Movimento'
+      object CarregarDadosAPI1: TMenuItem
+        Caption = 'Popular Base de Dados - API  (JasonPlaceHolder)'
+        OnClick = CarregarDadosAPI1Click
+      end
+    end
+    object Sair1: TMenuItem
+      Caption = 'Sair'
+      OnClick = Sair1Click
+    end
+  end
+end

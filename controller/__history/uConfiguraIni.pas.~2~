@@ -1,0 +1,43 @@
+unit uConfiguraIni;
+
+interface
+
+uses
+  IniFiles, System.SysUtils, Vcl.Forms;
+
+type
+  TConfiguraIni = class
+  public
+    class procedure SetValorIni(aLocal, aSessao, aSubSessao, aValor: String);
+    class function GetValorIni(aLocal, aSessao, aSubSessao: String):String;
+  end;
+
+implementation
+
+{ TConfiguraIni }
+
+class function TConfiguraIni.GetValorIni(aLocal, aSessao, aSubSessao: String): String;
+var
+  lArquivo : TIniFile;
+begin
+  try
+    lArquivo := TIniFile.Create(aLocal);
+    Result   := lArquivo.ReadString(aSessao, aSubSessao, EmptyStr);
+  finally
+    FreeAndNil(lArquivo);
+  end;
+end;
+
+class procedure TConfiguraIni.SetValorIni(aLocal, aSessao, aSubSessao, aValor: String);
+var
+  lArquivo : TIniFile;
+begin
+  try
+    lArquivo := TIniFile.Create(aLocal);
+    lArquivo.WriteString(aSessao,aSubSessao,aValor);
+  finally
+    FreeAndNil(lArquivo);
+  end;
+end;
+
+end.

@@ -1,0 +1,196 @@
+unit uPostsDAO;
+
+interface
+
+uses
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
+  FireDAC.Phys.Intf, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, Data.DB,
+  FireDAC.Comp.Client, FireDAC.Phys.MySQLDef, FireDAC.Phys.FB, System.SysUtils,
+  FireDAC.DApt, FireDAC.VCLUI.Wait, FireDAC.Stan.Def, System.Classes, uPostModel,
+  uConexao, Vcl.Forms, Math;
+
+type
+  TPostsDAO = class
+  private
+    FQuery: TFDQuery;
+    FConn: TFDConnection;
+    procedure RegistrarEvento(aInformacao: string);
+  public
+    constructor Create(aConexao: TFDConnection);
+    destructor Destroy; Override;
+    function GerarId: Integer;
+    function Inserir(oPost: TPostsModel; aErro: String): Boolean;
+    function Alterar(oPost: TPostsModel; aErro: String): Boolean;
+    function Excluir(aCodigo, aID: Integer; out aErro: String): Boolean;
+    procedure CarregarPost(oPost: TPostsModel; aCodigo, aID: Integer);
+    procedure CarregarTodosPosts(aDataSource: TDataSource);
+    procedure Pesquisar(aDataSource: TDataSource; aDescricao: String);
+  end;
+implementation
+
+{ TPostsDAO }
+
+function TPostsDAO.Alterar(oPost: TPostsModel; aErro: String): Boolean;
+begin
+  with FQuery do
+  begin
+    Close;
+    Sql.Clear;
+    SQL.Add('update POSTS set Title = :Title, Body = :Body where UserId = :UserId and Id = :Id');
+    ParamByName('Title').AsString := oPost.Title;
+    ParamByName('Body').AsString := oPost.Body;
+    ParamByName('UserId').AsInteger := oPost.UserId;
+    ParamByName('Id').AsInteger := oPost.ID;
+    try
+      ExecSQL;
+      RegistrarEvento('Registro alterado! ID: ' + oPost.Id.ToString);
+      Result := True;
+    except on E: Exception do
+      begin
+        aErro := 'Erro ao alterar registro' + sLineBreak + E.Message;
+        RegistrarEvento(aErro);
+        Result := False;
+      end;
+    end;
+  end;
+end;
+
+procedure TPostsDAO.CarregarPost(oPost: TPostsModel; aCodigo, aID: Integer);
+begin
+  with FQuery, oPost do
+  begin
+    SQL.Add('select * from POSTS where UserId = :UserId and Id = :Id');
+    ParamByName('UserId').AsInteger := aCodigo;
+    ParamByName('Id').AsInteger := aID;
+    try
+      Open;
+      if not IsEmpty then
+      begin
+        UserID := FieldByName('UserId').AsInteger;
+        ID     := FieldByName('ID').AsInteger;
+        Title  := FieldByName('Title').AsString;
+        Body   := FieldByName('Body').AsString;
+      end;
+    finally
+      Close;
+    end;
+  end;
+end;
+
+procedure TPostsDAO.CarregarTodosPosts(aDataSource: TDataSource);
+begin
+  aDataSource.DataSet := FQuery;
+  with FQuery do
+  begin
+    Close;
+    Sql.Clear;
+    Open('select * from POSTS');
+  end;
+end;
+
+constructor TPostsDAO.Create(aConexao: TFDConnection);
+begin
+  FConn := aConexao;
+  FQuery := TFDQuery.Create(nil);
+  FQuery.Connection := FConn;
+end;
+
+destructor TPostsDAO.Destroy;
+begin
+  if Assigned(FQuery) then
+    FreeAndNil(FQuery);
+  inherited;
+end;
+
+function TPostsDAO.Excluir(aCodigo, aID: Integer; out aErro: String): Boolean;
+begin
+  with FQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('delete from POSTS where UserId = :UserId and Id = :Id');
+    ParamByName('UserId').AsInteger := aCodigo;
+    ParamByName('ID').AsInteger := aID;
+    try
+      ExecSQL;
+      RegistrarEvento('Registro Excluido! ID: ' + aId.ToString);
+      Result := True;
+    except on E: Exception do
+      begin
+        aErro := 'Erro ao excluir registro' + sLineBreak + E.Message;
+        RegistrarEvento(aErro);
+        Result := False;
+      end;
+    end;
+  end;
+end;
+
+function TPostsDAO.GerarId: Integer;
+begin
+  FQuery.Close;
+  FQuery.Open('select coalesce(max(id), 0) +1 as seq from POSTS');
+  Result := FQuery.FieldByName('seq').AsInteger;
+end;
+
+function TPostsDAO.Inserir(oPost: TPostsModel; aErro: String): Boolean;
+var
+  LId: Integer;
+begin
+  LId := IfThen(oPost.ID > 0, oPost.ID, GerarId);
+  with FQuery, oPost do
+  begin
+    Close;
+    Sql.Clear;
+    Sql.Add('insert into POSTS (UserId, Id, Title, Body) values (:UserId, :Id, :Title, :Body)');
+    ParamByName('UserId').AsInteger := UserId;
+    ParamByName('ID').AsInteger     := LId;
+    ParamByName('Title').AsString   := UpperCase(Title);
+    ParamByName('Body').AsString    := Body;
+    try
+      ExecSQL;
+      Result := True;
+    except on E: Exception do
+      begin
+        aErro := 'Erro ao inserir registro' + sLineBreak + E.Message;
+        RegistrarEvento(aErro);
+        Result := False;
+      end;
+    end;
+  end
+end;
+
+procedure TPostsDAO.Pesquisar(aDataSource: TDataSource; aDescricao: String);
+begin
+  aDataSource.DataSet := FQuery;
+  with FQuery do
+  begin
+    Close;
+    Sql.Clear;
+    Sql.Add('select * from POSTS where Title like ''%' + UpperCase(aDescricao) + '%''');
+    Open;
+  end;
+end;
+
+procedure TPostsDAO.RegistrarEvento(aInformacao: string);
+var
+  LArquivo: TextFile;
+  LLocalArquivo: string;
+begin
+  TThread.CreateAnonymousThread(
+    procedure()
+    begin  
+      TThread.Synchronize(TThread.CurrentThread,
+      procedure()
+      begin
+        LLocalArquivo := ExtractFilePath(Application.ExeName) + 'Auditoria.txt';
+        AssignFile(LArquivo, LLocalArquivo);
+        if not FileExists(LLocalArquivo) then
+          Rewrite(LArquivo);
+        Append(LArquivo);
+        Writeln(LArquivo, DateTimeToStr(Now) + ' - ' + aInformacao);
+        CloseFile(LArquivo);
+      end);
+    end).Start;
+end;
+
+end.

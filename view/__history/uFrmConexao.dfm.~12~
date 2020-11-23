@@ -1,0 +1,78 @@
+object frmConexao: TfrmConexao
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'Conex'#227'o Banco de Dados'
+  ClientHeight = 200
+  ClientWidth = 360
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 360
+    Height = 200
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 0
+    ExplicitHeight = 225
+    object Label1: TLabel
+      Left = 8
+      Top = 21
+      Width = 137
+      Height = 13
+      Caption = 'Selecione o banco de dados:'
+    end
+    object Label3: TLabel
+      Left = 8
+      Top = 77
+      Width = 59
+      Height = 13
+      Caption = 'Par'#226'metros:'
+    end
+    object edtConexao: TEdit
+      Left = 8
+      Top = 40
+      Width = 229
+      Height = 21
+      TabOrder = 0
+    end
+    object memConexao: TMemo
+      Left = 8
+      Top = 96
+      Width = 335
+      Height = 78
+      TabOrder = 1
+    end
+    object btnConexao: TBitBtn
+      Left = 238
+      Top = 39
+      Width = 24
+      Height = 23
+      Caption = '...'
+      TabOrder = 2
+      OnClick = btnConexaoClick
+    end
+    object btnConectar: TBitBtn
+      Left = 268
+      Top = 38
+      Width = 75
+      Height = 25
+      Caption = 'Conectar'
+      TabOrder = 3
+      OnClick = btnConectarClick
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Filter = '*|fdb'
+    Left = 280
+    Top = 104
+  end
+end

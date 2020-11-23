@@ -1,0 +1,71 @@
+unit uFrmPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, uConexao, uConfiguraIni, uFrmConexao;
+
+type
+  TfrmPrincipal = class(TForm)
+    MainMenu1: TMainMenu;
+    Cadastro1: TMenuItem;
+    Movimento1: TMenuItem;
+    Sair1: TMenuItem;
+    CarregarDadosAPI1: TMenuItem;
+    procedure FormCreate(Sender: TObject);
+    procedure Sair1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+  vLocalArquivo: String;
+begin
+  vLocalArquivo := TConfiguraIni.GetValorIni(ExtractFilePath(Application.ExeName)+'ProjetoCM.ini','CONFIGURACAO','LocalDB');
+  if vLocalArquivo <> EmptyStr then
+  begin
+    try
+      TConexao.DataBasePath := vLocalArquivo;
+      TConexao.Instance;
+    except
+      begin
+        frmConexao := tfrmConexao.Create(Self);
+        try
+          frmConexao.ShowModal;
+        finally
+          FreeAndNil(frmConexao);
+        end;
+      end;
+    end;
+  end
+  else
+  begin
+    frmConexao := tfrmConexao.Create(Self);
+    try
+      frmConexao.ShowModal;
+    finally
+      FreeAndNil(frmConexao);
+    end;
+  end;
+end;
+
+procedure TfrmPrincipal.Sair1Click(Sender: TObject);
+begin
+  if MessageBox(handle,'Deseja encerrar a aplicação?','Atenção', MB_ICONQUESTION + MB_YESNO) = ID_YES then
+    Application.Terminate
+  else
+    Exit;
+end;
+
+end.

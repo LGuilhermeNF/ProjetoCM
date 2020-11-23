@@ -1,0 +1,10 @@
+21/11/2020 07:53:07 - Exclusão de Registro: delete from POSTS where UserId = 12 and Id = 102
+21/11/2020 07:55:37 - Exclusão de Registro: delete from POSTS where UserId = 12 and Id = 102
+21/11/2020 07:59:13 - Erro ao incluir registro[FireDAC][Phys][FB]violation of PRIMARY or UNIQUE KEY constraint "PK_POSTS" on table "POSTS"
+Problematic key value is ("ID" = 102, "USERID" = 12)
+21/11/2020 08:02:31 - Erro ao incluir registro[FireDAC][Phys][FB]violation of PRIMARY or UNIQUE KEY constraint "PK_POSTS" on table "POSTS"
+Problematic key value is ("ID" = 102, "USERID" = 12)
+21/11/2020 08:02:59 - Erro ao incluir registro[FireDAC][Phys][FB]violation of PRIMARY or UNIQUE KEY constraint "PK_POSTS" on table "POSTS"
+Problematic key value is ("ID" = 102, "USERID" = 12)
+21/11/2020 08:04:45 - Alteração de Registro: update POSTS set Title = SEGUNDO POST, Body = Deus vive! where UserId = 12 and Id = 12
+21/11/2020 08:05:10 - Exclusão de Registro: delete from POSTS where UserId = 12 and Id = 102

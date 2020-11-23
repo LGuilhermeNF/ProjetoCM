@@ -1,0 +1,60 @@
+unit uPostModel;
+
+interface
+
+type
+  TPosts = class
+  private
+    FPostID: Integer;
+    FBody: String;
+    FTitle: String;
+    FID: Integer;
+    procedure SetBody(const Value: String);
+    procedure SetID(const Value: Integer);
+    procedure SetPostID(const Value: Integer);
+    procedure SetTitle(const Value: String);
+    { private declarations }
+  public
+    { public declarations }
+    property PostID: Integer read FPostID write SetPostID;
+    property ID: Integer read FID write SetID;
+    property Title: String read FTitle write SetTitle;
+    property Body: String read FBody write SetBody;
+  end;
+
+implementation
+
+{ TPosts }
+
+constructor TPosts.Create;
+begin
+
+end;
+
+destructor TPosts.Destroy;
+begin
+
+  inherited;
+end;
+
+procedure TPosts.SetBody(const Value: String);
+begin
+  FBody := Value;
+end;
+
+procedure TPosts.SetID(const Value: Integer);
+begin
+  FID := Value;
+end;
+
+procedure TPosts.SetPostID(const Value: Integer);
+begin
+  FPostID := Value;
+end;
+
+procedure TPosts.SetTitle(const Value: String);
+begin
+  FTitle := Value;
+end;
+
+end.
