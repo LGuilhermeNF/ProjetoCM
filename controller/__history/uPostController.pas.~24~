@@ -2,7 +2,7 @@ unit uPostController;
 
 interface
 
-uses uPostModel, uPostsDAO, Data.Db, uConexao;
+uses uPostModel, uPostsDAO, Data.Db, uConexao, System.SysUtils;
 
 type
   TPostController = class
@@ -18,7 +18,6 @@ type
     procedure CarregarPost(oPost: TPostsModel; aCodigo, aID: Integer);
     procedure CarregarTodosPosts(aDataSource: TDataSource);
     procedure Pesquisar(aDataSource: TDataSource; aDescricao: String);
-
   end;
 
 implementation
@@ -47,6 +46,8 @@ end;
 
 destructor TPostController.Destroy;
 begin
+//  if Assigned(FPostsDAO) then
+//    FreeAndNil(FPostsDAO);
   inherited;
 end;
 
@@ -65,7 +66,7 @@ begin
   result := FPostsDAO.Inserir(oPost, aErro);
 end;
 
-procedure TPostController.Pesquisar(aDataSource: TDataSource;  aDescricao: String);
+procedure TPostController.Pesquisar(aDataSource: TDataSource; aDescricao: String);
 begin
   FPostsDAO.Pesquisar(aDataSource, aDescricao);
 end;

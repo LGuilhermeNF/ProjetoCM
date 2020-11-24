@@ -46,8 +46,8 @@ end;
 
 destructor TPostController.Destroy;
 begin
-//  if Assigned(FPostsDAO) then
-//    FreeAndNil(FPostsDAO);
+  if Assigned(FPostsDAO) then
+    FreeAndNil(FPostsDAO);
   inherited;
 end;
 
