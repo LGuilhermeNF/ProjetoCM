@@ -76,7 +76,7 @@ begin
       TConexao.Instance;
     except
       begin
-        frmConexao := TfrmConexao.Create(Self);
+        frmConexao := tfrmConexao.Create(Self);
         try
           frmConexao.ShowModal;
         finally
@@ -87,7 +87,7 @@ begin
   end
   else
   begin
-    frmConexao := TfrmConexao.Create(Self);
+    frmConexao := tfrmConexao.Create(Self);
     try
       frmConexao.ShowModal;
     finally

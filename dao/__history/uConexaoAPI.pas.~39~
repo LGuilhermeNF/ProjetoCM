@@ -24,6 +24,8 @@ type
     property ClientAPI: TRESTClient read FClientAPI write SetClientAPI;
     property RequestAPI: TRESTRequest read FRequestAPI write SetRequestAPI;
     property ResponseAPI: TRESTResponse read FResponseAPI write SetResposeAPI;
+    property TotalRegistros: Integer read FTotalRegistros;
+    property ProgressStep: Integer read FProgressStep;
   end;
 
 implementation
@@ -53,9 +55,9 @@ begin
       end;
     end;
   finally
-    FreeAndNil(RequestAPI);
-    FreeAndNil(ResponseAPI);
-    FreeAndNil(ClientAPI);
+//    FreeAndNil(RequestAPI);
+//    FreeAndNil(ResponseAPI);
+//    FreeAndNil(ClientAPI);
   end;
 end;
 
@@ -108,9 +110,11 @@ begin
   oPostModel := TPostsModel.Create;
   oPostController := TPostController.Create;
   JsonArray := TJSONObject.ParseJSONValue(ResponseAPI.Content) as TJSONArray;
+  FTotalRegistros := JsonArray.Count;
   try
     for i := 0 to JsonArray.Count - 1 do
     begin
+      FProgressStep := i;
       oJson := JSONArray.Items[i] as TJSONObject;
       with oPostModel do
       begin

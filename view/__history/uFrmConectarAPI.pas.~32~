@@ -24,12 +24,14 @@ type
     procedure btnSincronizarClick(Sender: TObject);
     procedure btnSairClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     { Private declarations }
     FError: String;
     FBaseUrl: String;
-    FResource: String;
     FConectado: Boolean;
+    FConexaoAPI: TConexaoAPI;
   public
     { Public declarations }
     procedure ConectarAPI;
@@ -68,7 +70,7 @@ begin
   end;
 
   try
-    if TConexaoAPI.ConectarAPI('posts', FBaseUrl, FError) then
+    if FConexaoAPI.ConectarAPI('posts', FBaseUrl, FError) then
     begin
       btnSincronizar.Enabled := True;
       FConectado := True;
@@ -84,18 +86,43 @@ begin
   lblConexaoAPI.Visible := True;
 end;
 
+procedure TfrmConectaAPI.FormCreate(Sender: TObject);
+begin
+  FConexaoAPI := TConexaoAPI.Create;
+end;
+
+procedure TfrmConectaAPI.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FConexaoAPI);
+end;
+
 procedure TfrmConectaAPI.FormShow(Sender: TObject);
 begin
   lblConexaoAPI.Visible := False;
 end;
 
 procedure TfrmConectaAPI.SincornizarBaseDados;
+var
+  i: Integer;
 begin
-  if FConectado then
+  try
+    if FConectado then
     begin
-      TConexaoAPI.SincronizarAPI;
-      ProgressBar.Position := TConexaoAPI.ProgressStep;
+      FConexaoAPI.SincronizarAPI;
+      ProgressBar.Max := FConexaoAPI.TotalRegistros;
+      for i := 0 to FConexaoAPI.TotalRegistros - 1 do
+      begin
+        ProgressBar.Position := FConexaoAPI.ProgressStep;
+      end;
+      MessageBox(handle,'Processo concluido.','Informação', MB_ICONINFORMATION + MB_OK);
+    end
+    else
+    begin
+      MessageBox(handle,'Necessário conectar com aplicação.','Informação', MB_ICONINFORMATION + MB_OK);
     end;
+  finally
+
+  end;
 end;
 
 end.

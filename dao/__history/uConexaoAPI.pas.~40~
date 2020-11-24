@@ -23,9 +23,8 @@ type
     destructor Destroy; override;
     procedure SincronizarAPI;
     function ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
-    property ClientAPI: TRESTClient read FClientAPI write SetClientAPI;
-    property RequestAPI: TRESTRequest read FRequestAPI write SetRequestAPI;
-    property ResponseAPI: TRESTResponse read FResponseAPI write SetResposeAPI;
+    property TotalRegistros: Integer read FTotalRegistros;
+    property ProgressStep: Integer read FProgressStep;
   end;
 
 implementation
@@ -39,9 +38,7 @@ function TConexaoAPI.ConectarAPI(aResouce, aBaseUrl: String; var aError: String)
 begin
   try
     try
-      ClientAPI   := TRESTClient.Create(aBaseUrl);
-      ResponseAPI := TRESTResponse.Create(nil);
-      RequestAPI  := TRESTRequest.Create(nil);
+
       RequestAPI.Response := ResponseAPI;
       RequestAPI.Client   := ClientAPI;
       RequestAPI.Resource := aResouce;
@@ -55,29 +52,18 @@ begin
       end;
     end;
   finally
-    FreeAndNil(RequestAPI);
-    FreeAndNil(ResponseAPI);
-    FreeAndNil(ClientAPI);
+//    FreeAndNil(RequestAPI);
+//    FreeAndNil(ResponseAPI);
+//    FreeAndNil(ClientAPI);
   end;
-end;
-
-constructor TConexaoAPI.Create;
-begin
-
 end;
 
 destructor TConexaoAPI.Destroy;
 begin
-
+  FreeAndNil(FRequestAPI);
+  FreeAndNil(FResponseAPI);
+  FreeAndNil(FClientAPI);
   inherited;
-end;
-
-class function TConexaoAPI.getInstance: TConexaoAPI;
-begin
-  if not Assigned(FInstance) then
-    FInstance := TConexaoAPI.Create();
-  result := FInstance;
-
 end;
 
 procedure TConexaoAPI.RegistrarEvento(aInformacao: String);
@@ -129,9 +115,11 @@ begin
   oPostModel := TPostsModel.Create;
   oPostController := TPostController.Create;
   JsonArray := TJSONObject.ParseJSONValue(ResponseAPI.Content) as TJSONArray;
+  FTotalRegistros := JsonArray.Count;
   try
     for i := 0 to JsonArray.Count - 1 do
     begin
+      FProgressStep := i;
       oJson := JSONArray.Items[i] as TJSONObject;
       with oPostModel do
       begin

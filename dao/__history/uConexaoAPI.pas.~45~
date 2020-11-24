@@ -19,11 +19,11 @@ type
     procedure SetRequestAPI(const Value: TRESTRequest);
     procedure SetResposeAPI(const Value: TRESTResponse);
   public
+    destructor Destroy; override;
     procedure SincronizarAPI;
-    function ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
-    property ClientAPI: TRESTClient read FClientAPI write SetClientAPI;
-    property RequestAPI: TRESTRequest read FRequestAPI write SetRequestAPI;
-    property ResponseAPI: TRESTResponse read FResponseAPI write SetResposeAPI;
+    function ConectarAPI(aBaseUrl, aResouce: String; var aError: String): Boolean;
+    property TotalRegistros: Integer read FTotalRegistros;
+    property ProgressStep: Integer read FProgressStep;
   end;
 
 implementation
@@ -33,30 +33,29 @@ implementation
 uses uFrmPosts, uPostController;
 
 
-function TConexaoAPI.ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
+function TConexaoAPI.ConectarAPI(aBaseUrl, aResouce: String; var aError: String): Boolean;
 begin
   try
-    try
-      ClientAPI   := TRESTClient.Create(aBaseUrl);
-      ResponseAPI := TRESTResponse.Create(nil);
-      RequestAPI  := TRESTRequest.Create(nil);
-      RequestAPI.Response := ResponseAPI;
-      RequestAPI.Client   := ClientAPI;
-      RequestAPI.Resource := aResouce;
-      RequestAPI.Execute;
-      Result := True;
-    except on E: Exception do
-      begin
-        aError := 'Erro ao conectar com a aplicação' + sLineBreak + E.Message;
-        RegistrarEvento(aError);
-        Result := False;
-      end;
+    FRequestAPI.Response := FResponseAPI;
+    FRequestAPI.Client   := FClientAPI;
+    FRequestAPI.Resource := aResouce;
+    FRequestAPI.Execute;
+    Result := True;
+  except on E: Exception do
+    begin
+      aError := 'Erro ao conectar com a aplicação' + sLineBreak + E.Message;
+      RegistrarEvento(aError);
+      Result := False;
     end;
-  finally
-    FreeAndNil(RequestAPI);
-    FreeAndNil(ResponseAPI);
-    FreeAndNil(ClientAPI);
   end;
+end;
+
+destructor TConexaoAPI.Destroy;
+begin
+  FreeAndNil(FRequestAPI);
+  FreeAndNil(FResponseAPI);
+  FreeAndNil(FClientAPI);
+  inherited;
 end;
 
 procedure TConexaoAPI.RegistrarEvento(aInformacao: String);
@@ -107,10 +106,12 @@ var
 begin
   oPostModel := TPostsModel.Create;
   oPostController := TPostController.Create;
-  JsonArray := TJSONObject.ParseJSONValue(ResponseAPI.Content) as TJSONArray;
+  JsonArray := TJSONObject.ParseJSONValue(FResponseAPI.Content) as TJSONArray;
+  FTotalRegistros := JsonArray.Count;
   try
     for i := 0 to JsonArray.Count - 1 do
     begin
+      FProgressStep := i;
       oJson := JSONArray.Items[i] as TJSONObject;
       with oPostModel do
       begin

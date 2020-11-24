@@ -70,7 +70,7 @@ begin
   end;
 
   try
-    if FConexaoAPI.ConectarAPI('posts', FBaseUrl, FError) then
+    if FConexaoAPI.ConectarAPI(FBaseUrl, 'posts', FError) then
     begin
       btnSincronizar.Enabled := True;
       FConectado := True;
