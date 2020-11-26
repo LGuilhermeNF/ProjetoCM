@@ -6,3 +6,7 @@
 24/11/2020 19:08:59 - Registro Excluido! ID: 7
 24/11/2020 19:09:03 - Registro Excluido! ID: 8
 24/11/2020 19:09:09 - Registro Excluido! ID: 9
+26/11/2020 10:35:57 - Registro Excluido! ID: 1
+26/11/2020 10:36:01 - Registro Excluido! ID: 10
+26/11/2020 10:36:04 - Registro Excluido! ID: 11
+26/11/2020 10:36:08 - Registro Excluido! ID: 12
