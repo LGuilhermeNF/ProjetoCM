@@ -15,12 +15,17 @@ type
     FTotalRegistros: Integer;
     FProgressStep: Integer;
     procedure RegistrarEvento(aInformacao: String);
+    procedure SetClientAPI(const Value: TRESTClient);
+    procedure SetRequestAPI(const Value: TRESTRequest);
+    procedure SetResposeAPI(const Value: TRESTResponse);
   public
+    constructor Create;
     destructor Destroy; override;
     procedure SincronizarAPI;
     function ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
-    property TotalRegistros: Integer read FTotalRegistros;
-    property ProgressStep: Integer read FProgressStep;
+    property ClientAPI: TRESTClient read FClientAPI write SetClientAPI;
+    property RequestAPI: TRESTRequest read FRequestAPI write SetRequestAPI;
+    property ResponseAPI: TRESTResponse read FResponseAPI write SetResposeAPI;
   end;
 
 implementation
@@ -32,15 +37,15 @@ uses uFrmPosts, uPostController;
 
 function TConexaoAPI.ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
 begin
-  FClientAPI   := TRESTClient.Create(aBaseUrl);
-  FResponseAPI := TRESTResponse.Create(nil);
-  FRequestAPI  := TRESTRequest.Create(nil);
   try
     try
-      FRequestAPI.Response := FResponseAPI;
-      FRequestAPI.Client   := FClientAPI;
-      FRequestAPI.Resource := aResouce;
-      FRequestAPI.Execute;
+      ClientAPI   := TRESTClient.Create(aBaseUrl);
+      ResponseAPI := TRESTResponse.Create(nil);
+      RequestAPI  := TRESTRequest.Create(nil);
+      RequestAPI.Response := ResponseAPI;
+      RequestAPI.Client   := ClientAPI;
+      RequestAPI.Resource := aResouce;
+      RequestAPI.Execute;
       Result := True;
     except on E: Exception do
       begin
@@ -50,18 +55,29 @@ begin
       end;
     end;
   finally
+    FreeAndNil(RequestAPI);
+    FreeAndNil(ResponseAPI);
+    FreeAndNil(ClientAPI);
   end;
+end;
+
+constructor TConexaoAPI.Create;
+begin
+
 end;
 
 destructor TConexaoAPI.Destroy;
 begin
-  if Assigned(FRequestAPI) then
-    FreeAndNil(FRequestAPI);
-  if Assigned(FResponseAPI) then
-    FreeAndNil(FResponseAPI);
-  if Assigned(FClientAPI) then
-    FreeAndNil(FClientAPI);
+
   inherited;
+end;
+
+class function TConexaoAPI.getInstance: TConexaoAPI;
+begin
+  if not Assigned(FInstance) then
+    FInstance := TConexaoAPI.Create();
+  result := FInstance;
+
 end;
 
 procedure TConexaoAPI.RegistrarEvento(aInformacao: String);
@@ -86,6 +102,21 @@ begin
     end).Start;
 end;
 
+procedure TConexaoAPI.SetClientAPI(const Value: TRESTClient);
+begin
+  FClientAPI := Value;
+end;
+
+procedure TConexaoAPI.SetRequestAPI(const Value: TRESTRequest);
+begin
+  FRequestAPI := Value;
+end;
+
+procedure TConexaoAPI.SetResposeAPI(const Value: TRESTResponse);
+begin
+  FResponseAPI := Value;
+end;
+
 procedure TConexaoAPI.SincronizarAPI;
 var
   i: Integer;
@@ -97,12 +128,10 @@ var
 begin
   oPostModel := TPostsModel.Create;
   oPostController := TPostController.Create;
-  JsonArray := TJSONObject.ParseJSONValue(FResponseAPI.Content) as TJSONArray;
-  FTotalRegistros := JsonArray.Count;
+  JsonArray := TJSONObject.ParseJSONValue(ResponseAPI.Content) as TJSONArray;
   try
     for i := 0 to JsonArray.Count - 1 do
     begin
-      FProgressStep := i;
       oJson := JSONArray.Items[i] as TJSONObject;
       with oPostModel do
       begin

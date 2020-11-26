@@ -1,28 +1,24 @@
 object frmConexao: TfrmConexao
   Left = 0
   Top = 0
-  BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Conex'#227'o Banco de Dados'
-  ClientHeight = 111
-  ClientWidth = 377
+  ClientHeight = 200
+  ClientWidth = 360
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
-  KeyPreview = True
   OldCreateOrder = False
-  Position = poScreenCenter
-  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 377
-    Height = 111
+    Width = 360
+    Height = 200
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
@@ -33,35 +29,49 @@ object frmConexao: TfrmConexao
       Height = 13
       Caption = 'Selecione o banco de dados:'
     end
+    object Label3: TLabel
+      Left = 8
+      Top = 77
+      Width = 59
+      Height = 13
+      Caption = 'Par'#226'metros:'
+    end
     object edtConexao: TEdit
       Left = 8
       Top = 40
-      Width = 332
+      Width = 229
       Height = 21
       TabOrder = 0
     end
-    object btnOpenDialog: TBitBtn
-      Left = 342
+    object memConexao: TMemo
+      Left = 8
+      Top = 96
+      Width = 335
+      Height = 78
+      TabOrder = 1
+    end
+    object btnConexao: TBitBtn
+      Left = 238
       Top = 39
       Width = 24
       Height = 23
       Caption = '...'
-      TabOrder = 1
-      OnClick = btnOpenDialogClick
+      TabOrder = 2
+      OnClick = btnConexaoClick
     end
     object btnConectar: TBitBtn
-      Left = 291
-      Top = 72
+      Left = 268
+      Top = 38
       Width = 75
       Height = 25
       Caption = 'Conectar'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = btnConectarClick
     end
   end
   object OpenDialog1: TOpenDialog
     Filter = 'FireBird|*.fdb'
-    Left = 224
-    Top = 64
+    Left = 280
+    Top = 104
   end
 end

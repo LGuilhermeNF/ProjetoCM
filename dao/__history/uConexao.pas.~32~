@@ -72,9 +72,4 @@ begin
   result := FInstance;
 end;
 
-initialization
-
-finalization
-if Assigned(TConexao.FInstance) then
-  FreeAndNil(TConexao.FInstance);
 end.

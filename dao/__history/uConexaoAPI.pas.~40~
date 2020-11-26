@@ -19,7 +19,6 @@ type
     procedure SetRequestAPI(const Value: TRESTRequest);
     procedure SetResposeAPI(const Value: TRESTResponse);
   public
-    constructor Create;
     destructor Destroy; override;
     procedure SincronizarAPI;
     function ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
@@ -36,13 +35,15 @@ uses uFrmPosts, uPostController;
 
 function TConexaoAPI.ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
 begin
+  FClientAPI   := TRESTClient.Create(aBaseUrl);
+  FResponseAPI := TRESTResponse.Create(nil);
+  FRequestAPI  := TRESTRequest.Create(nil);
   try
     try
-
-      RequestAPI.Response := ResponseAPI;
-      RequestAPI.Client   := ClientAPI;
-      RequestAPI.Resource := aResouce;
-      RequestAPI.Execute;
+      FRequestAPI.Response := FResponseAPI;
+      FRequestAPI.Client   := FClientAPI;
+      FRequestAPI.Resource := FaResouce;
+      FRequestAPI.Execute;
       Result := True;
     except on E: Exception do
       begin
@@ -52,17 +53,17 @@ begin
       end;
     end;
   finally
-//    FreeAndNil(RequestAPI);
-//    FreeAndNil(ResponseAPI);
-//    FreeAndNil(ClientAPI);
   end;
 end;
 
 destructor TConexaoAPI.Destroy;
 begin
-  FreeAndNil(FRequestAPI);
-  FreeAndNil(FResponseAPI);
-  FreeAndNil(FClientAPI);
+  if Assigned(FRequestAPI) then
+    FreeAndNil(FRequestAPI);
+  if Assigned(FResponseAPI) then
+    FreeAndNil(FResponseAPI);
+  if Assigned(FClientAPI) then
+    FreeAndNil(FClientAPI);
   inherited;
 end;
 

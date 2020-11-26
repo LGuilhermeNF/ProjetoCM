@@ -60,8 +60,8 @@ begin
       FConn.Close;
     FreeAndNil(FConn);
   end;
-  if Assigned(FConn) then
-    FreeAndNil(FConn);
+//  if Assigned(FInstance) then
+//    FreeAndNil(FInstance);
   inherited;
 end;
 

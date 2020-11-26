@@ -18,7 +18,7 @@ type
   public
     destructor Destroy; override;
     procedure SincronizarAPI;
-    function ConectarAPI(aBaseUrl, aResouce: String; var aError: String): Boolean;
+    function ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
     property TotalRegistros: Integer read FTotalRegistros;
     property ProgressStep: Integer read FProgressStep;
   end;
@@ -30,23 +30,26 @@ implementation
 uses uFrmPosts, uPostController;
 
 
-function TConexaoAPI.ConectarAPI(aBaseUrl, aResouce: String; var aError: String): Boolean;
+function TConexaoAPI.ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
 begin
   FClientAPI   := TRESTClient.Create(aBaseUrl);
   FResponseAPI := TRESTResponse.Create(nil);
   FRequestAPI  := TRESTRequest.Create(nil);
   try
-    FRequestAPI.Response := FResponseAPI;
-    FRequestAPI.Client   := FClientAPI;
-    FRequestAPI.Resource := aResouce;
-    FRequestAPI.Execute;
-    Result := True;
-  except on E: Exception do
-    begin
-      aError := 'Erro ao conectar com a aplicação' + sLineBreak + E.Message;
-      RegistrarEvento(aError);
-      Result := False;
+    try
+      FRequestAPI.Response := FResponseAPI;
+      FRequestAPI.Client   := FClientAPI;
+      FRequestAPI.Resource := aResouce;
+      FRequestAPI.Execute;
+      Result := True;
+    except on E: Exception do
+      begin
+        aError := 'Erro ao conectar com a aplicação' + sLineBreak + E.Message;
+        RegistrarEvento(aError);
+        Result := False;
+      end;
     end;
+  finally
   end;
 end;
 

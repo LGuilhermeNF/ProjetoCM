@@ -55,7 +55,7 @@
         <SanitizedProjectName>ProjetoCM</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UsePackage>DBXSqliteDriver;RESTComponents;DBXInterBaseDriver;vclactnband;vclFireDAC;tethering;svnui;FireDACADSDriver;vcltouch;vcldb;bindcompfmx;svn;inetdb;CEF4Delphi;fmx;FireDACIBDriver;fmxdae;vclib;dbexpress;IndyCore;vclx;dsnap;FireDACCommon;RESTBackendComponents;VCLRESTComponents;soapserver;vclie;bindengine;DBXMySQLDriver;CloudService;FireDACMySQLDriver;FireDACCommonODBC;FireDACCommonDriver;TInjectCollection;inet;bindcompdbx;IndyIPCommon;vcl;IndyIPServer;IndySystem;dsnapcon;FireDACMSAccDriver;fmxFireDAC;vclimg;FireDAC;FireDACSqliteDriver;FireDACPgDriver;ibmonitor;soaprtl;DbxCommonDriver;ibxpress;xmlrtl;soapmidas;ibxbindings;fmxobj;vclwinx;rtl;DbxClientDriver;CustomIPTransport;vcldsnap;bindcomp;appanalytics;IndyIPClient;frce;bindcompvcl;dbxcds;VclSmp;adortl;dsnapxml;dbrtl;IndyProtocols;inetdbxpress;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>DBXSqliteDriver;RESTComponents;DBXInterBaseDriver;vclactnband;vclFireDAC;tethering;svnui;FireDACADSDriver;vcltouch;vcldb;bindcompfmx;svn;inetdb;fmx;FireDACIBDriver;fmxdae;vclib;dbexpress;IndyCore;vclx;dsnap;FireDACCommon;RESTBackendComponents;VCLRESTComponents;soapserver;vclie;bindengine;DBXMySQLDriver;CloudService;FireDACMySQLDriver;FireDACCommonODBC;FireDACCommonDriver;inet;bindcompdbx;IndyIPCommon;vcl;IndyIPServer;IndySystem;dsnapcon;FireDACMSAccDriver;fmxFireDAC;vclimg;FireDAC;FireDACSqliteDriver;FireDACPgDriver;ibmonitor;soaprtl;DbxCommonDriver;ibxpress;xmlrtl;soapmidas;ibxbindings;fmxobj;vclwinx;rtl;DbxClientDriver;CustomIPTransport;vcldsnap;bindcomp;appanalytics;IndyIPClient;frce;bindcompvcl;dbxcds;VclSmp;adortl;dsnapxml;dbrtl;IndyProtocols;inetdbxpress;fmxase;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
@@ -78,7 +78,7 @@
         <UsePackages>true</UsePackages>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_ExeOutput>C:\Projetos Delphi\ProjetoCM\bin\</DCC_ExeOutput>
+        <DCC_ExeOutput>C:\CASACM\ProjetoCM\bin\</DCC_ExeOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -137,6 +137,7 @@
                     <Source Name="MainSource">ProjetoCM.dpr</Source>
                 </Source>
                 <Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\20.0\Bpl\TInjectCollection.bpl">TInject Brasil</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k260.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp260.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>

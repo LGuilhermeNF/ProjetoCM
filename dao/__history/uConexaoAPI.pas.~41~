@@ -19,7 +19,6 @@ type
     procedure SetRequestAPI(const Value: TRESTRequest);
     procedure SetResposeAPI(const Value: TRESTResponse);
   public
-    constructor Create;
     destructor Destroy; override;
     procedure SincronizarAPI;
     function ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
@@ -36,26 +35,35 @@ uses uFrmPosts, uPostController;
 
 function TConexaoAPI.ConectarAPI(aResouce, aBaseUrl: String; var aError: String): Boolean;
 begin
+  FClientAPI   := TRESTClient.Create(aBaseUrl);
+  FResponseAPI := TRESTResponse.Create(nil);
+  FRequestAPI  := TRESTRequest.Create(nil);
   try
-    FRequestAPI.Response := FResponseAPI;
-    FRequestAPI.Client   := FClientAPI;
-    FRequestAPI.Resource := aResouce;
-    FRequestAPI.Execute;
-    Result := True;
-  except on E: Exception do
-    begin
-      aError := 'Erro ao conectar com a aplicação' + sLineBreak + E.Message;
-      RegistrarEvento(aError);
-      Result := False;
+    try
+      FRequestAPI.Response := FResponseAPI;
+      FRequestAPI.Client   := FClientAPI;
+      FRequestAPI.Resource := aResouce;
+      FRequestAPI.Execute;
+      Result := True;
+    except on E: Exception do
+      begin
+        aError := 'Erro ao conectar com a aplicação' + sLineBreak + E.Message;
+        RegistrarEvento(aError);
+        Result := False;
+      end;
     end;
+  finally
   end;
 end;
 
 destructor TConexaoAPI.Destroy;
 begin
-  FreeAndNil(FRequestAPI);
-  FreeAndNil(FResponseAPI);
-  FreeAndNil(FClientAPI);
+  if Assigned(FRequestAPI) then
+    FreeAndNil(FRequestAPI);
+  if Assigned(FResponseAPI) then
+    FreeAndNil(FResponseAPI);
+  if Assigned(FClientAPI) then
+    FreeAndNil(FClientAPI);
   inherited;
 end;
 
