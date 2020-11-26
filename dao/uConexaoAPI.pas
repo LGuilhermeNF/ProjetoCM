@@ -32,10 +32,10 @@ uses uFrmPosts, uPostController;
 
 function TConexaoAPI.ConectarAPI(aBaseUrl, aResouce: String; var aError: String): Boolean;
 begin
+  FClientAPI   := TRESTClient.Create(aBaseUrl);
+  FResponseAPI := TRESTResponse.Create(nil);
+  FRequestAPI  := TRESTRequest.Create(nil);
   try
-    FClientAPI   := TRESTClient.Create(aBaseUrl);
-    FResponseAPI := TRESTResponse.Create(nil);
-    FRequestAPI  := TRESTRequest.Create(nil);
     FRequestAPI.Response := FResponseAPI;
     FRequestAPI.Client   := FClientAPI;
     FRequestAPI.Resource := aResouce;
