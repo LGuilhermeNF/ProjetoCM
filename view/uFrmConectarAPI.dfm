@@ -87,7 +87,7 @@ object frmConectaAPI: TfrmConectaAPI
       Top = 19
       Width = 75
       Height = 25
-      Caption = 'Faechar'
+      Caption = 'Fechar'
       TabOrder = 1
       OnClick = btnSairClick
     end

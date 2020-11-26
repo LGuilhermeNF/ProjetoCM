@@ -1,9 +1,11 @@
 object frmConectaAPI: TfrmConectaAPI
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu]
+  BorderStyle = bsSingle
   Caption = 'Conectar API'
-  ClientHeight = 197
-  ClientWidth = 502
+  ClientHeight = 237
+  ClientWidth = 512
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -11,18 +13,35 @@ object frmConectaAPI: TfrmConectaAPI
   Font.Name = 'Tahoma'
   Font.Style = []
   OldCreateOrder = False
+  Position = poMainFormCenter
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 502
-    Height = 73
+    Width = 512
+    Height = 94
     Align = alTop
     BevelOuter = bvNone
     Color = clInactiveCaption
     ParentBackground = False
     TabOrder = 0
+    object lblConexaoAPI: TLabel
+      Left = 200
+      Top = 68
+      Width = 93
+      Height = 13
+      Caption = 'C O N E C T A D O!'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object edtURL: TLabeledEdit
       Left = 16
       Top = 36
@@ -46,9 +65,9 @@ object frmConectaAPI: TfrmConectaAPI
   end
   object Panel2: TPanel
     Left = 0
-    Top = 156
-    Width = 502
-    Height = 41
+    Top = 176
+    Width = 512
+    Height = 61
     Align = alBottom
     BevelOuter = bvNone
     Color = clInactiveCaption
@@ -56,7 +75,7 @@ object frmConectaAPI: TfrmConectaAPI
     TabOrder = 1
     object btnSincronizar: TBitBtn
       Left = 328
-      Top = 10
+      Top = 19
       Width = 75
       Height = 25
       Caption = 'Sincronizar'
@@ -65,7 +84,7 @@ object frmConectaAPI: TfrmConectaAPI
     end
     object btnSair: TBitBtn
       Left = 415
-      Top = 10
+      Top = 19
       Width = 75
       Height = 25
       Caption = 'Faechar'
@@ -75,9 +94,9 @@ object frmConectaAPI: TfrmConectaAPI
   end
   object Panel3: TPanel
     Left = 0
-    Top = 73
-    Width = 502
-    Height = 83
+    Top = 94
+    Width = 512
+    Height = 82
     Align = alClient
     BevelOuter = bvLowered
     TabOrder = 2
@@ -88,11 +107,12 @@ object frmConectaAPI: TfrmConectaAPI
       Height = 13
       Caption = 'Progresso'
     end
-    object ProgressBar1: TProgressBar
+    object ProgressBar: TProgressBar
       Left = 16
       Top = 33
       Width = 474
       Height = 25
+      BarColor = clHighlight
       TabOrder = 0
     end
   end

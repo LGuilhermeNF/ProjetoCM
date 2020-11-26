@@ -4,7 +4,7 @@ object frmConexao: TfrmConexao
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Conex'#227'o Banco de Dados'
-  ClientHeight = 111
+  ClientHeight = 184
   ClientWidth = 377
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -22,7 +22,7 @@ object frmConexao: TfrmConexao
     Left = 0
     Top = 0
     Width = 377
-    Height = 111
+    Height = 184
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
@@ -51,7 +51,7 @@ object frmConexao: TfrmConexao
     end
     object btnConectar: TBitBtn
       Left = 291
-      Top = 72
+      Top = 128
       Width = 75
       Height = 25
       Caption = 'Conectar'
@@ -61,7 +61,7 @@ object frmConexao: TfrmConexao
   end
   object OpenDialog1: TOpenDialog
     Filter = 'FireBird|*.fdb'
-    Left = 224
-    Top = 64
+    Left = 56
+    Top = 120
   end
 end

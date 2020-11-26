@@ -61,11 +61,7 @@ begin
       try
         vFileName := ExtractFilePath(Application.ExeName) + 'ProjetoCM.ini';
         TConexao.DataBasePath := edtConexao.Text;
-        try
-          TConexao.Instance;
-        except on E: Exception do
-          raise Exception.Create('Erro ao conectar ao banco de dados.' + E.Message);
-        end;
+        TConexao.Instance;
         TConfiguraIni.SetValorIni(vFileName, 'CONFIGURACAO','LocalDB', edtConexao.Text);
         MessageBox(handle,'Conexão realizada com sucesso!','Conexão banco de dados', MB_ICONINFORMATION + MB_OK);
       except on E: Exception do

@@ -2,30 +2,30 @@
 <BorlandProject>
 	<Transactions>
     <Transaction>2020/11/19 23:22:16.000.809,=C:\Users\Casa De Oracao\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
-    <Transaction>2020/11/19 23:23:58.000.009,C:\Users\Casa De Oracao\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Projetos Delphi\ProjetoCM\dao\uFrmConexao.pas</Transaction>
-    <Transaction>2020/11/19 23:23:58.000.009,C:\Users\Casa De Oracao\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Projetos Delphi\ProjetoCM\dao\uFrmConexao.dfm</Transaction>
-    <Transaction>2020/11/19 23:47:21.000.318,C:\Users\Casa De Oracao\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Projetos Delphi\ProjetoCM\ProjetoCM.dproj</Transaction>
+    <Transaction>2020/11/19 23:23:58.000.009,C:\Projetos Delphi\ProjetoCM\dao\uFrmConexao.pas=C:\Users\Casa De Oracao\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2020/11/19 23:23:58.000.009,C:\Projetos Delphi\ProjetoCM\dao\uFrmConexao.dfm=C:\Users\Casa De Oracao\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/11/19 23:47:21.000.318,C:\Projetos Delphi\ProjetoCM\ProjetoCM.dproj=C:\Users\Casa De Oracao\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
     <Transaction>2020/11/19 23:49:02.000.389,=C:\Projetos Delphi\ProjetoCM\view\uFrmConexao.pas</Transaction>
     <Transaction>2020/11/20 00:03:18.000.870,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/20 00:03:39.000.770,C:\Projetos Delphi\ProjetoCM\dao\uConexao.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
+    <Transaction>2020/11/20 00:03:39.000.770,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\dao\uConexao.pas</Transaction>
     <Transaction>2020/11/20 19:51:09.000.079,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/20 20:00:36.000.359,C:\Projetos Delphi\ProjetoCM\controller\uConfiguraIni.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
+    <Transaction>2020/11/20 20:00:36.000.359,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\controller\uConfiguraIni.pas</Transaction>
     <Transaction>2020/11/20 20:46:47.000.388,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/20 20:48:11.000.752,C:\Projetos Delphi\ProjetoCM\view\uFrmPrincipal.dfm=C:\Projetos Delphi\ProjetoCM\Unit1.dfm</Transaction>
-    <Transaction>2020/11/20 20:48:11.000.752,C:\Projetos Delphi\ProjetoCM\view\uFrmPrincipal.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
+    <Transaction>2020/11/20 20:48:11.000.752,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\view\uFrmPrincipal.pas</Transaction>
+    <Transaction>2020/11/20 20:48:11.000.752,C:\Projetos Delphi\ProjetoCM\Unit1.dfm=C:\Projetos Delphi\ProjetoCM\view\uFrmPrincipal.dfm</Transaction>
     <Transaction>2020/11/20 22:54:37.000.685,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/20 22:55:02.000.036,C:\Projetos Delphi\ProjetoCM\model\uPostModel.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
+    <Transaction>2020/11/20 22:55:02.000.036,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\model\uPostModel.pas</Transaction>
     <Transaction>2020/11/20 23:16:08.000.820,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/20 23:16:48.000.885,C:\Projetos Delphi\ProjetoCM\controller\uPostController.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
+    <Transaction>2020/11/20 23:16:48.000.885,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\controller\uPostController.pas</Transaction>
     <Transaction>2020/11/20 23:24:58.000.460,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/20 23:25:17.000.732,C:\Projetos Delphi\ProjetoCM\dao\uPostsDAO.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
+    <Transaction>2020/11/20 23:25:17.000.732,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\dao\uPostsDAO.pas</Transaction>
     <Transaction>2020/11/21 03:00:48.000.856,=C:\Projetos Delphi\ProjetoCM\view\uFrmPosts.pas</Transaction>
     <Transaction>2020/11/22 14:32:32.000.427,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/22 14:33:56.000.970,C:\Projetos Delphi\ProjetoCM\uFrmConectarAPI.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/22 14:33:56.000.970,C:\Projetos Delphi\ProjetoCM\uFrmConectarAPI.dfm=C:\Projetos Delphi\ProjetoCM\Unit1.dfm</Transaction>
+    <Transaction>2020/11/22 14:33:56.000.970,C:\Projetos Delphi\ProjetoCM\Unit1.dfm=C:\Projetos Delphi\ProjetoCM\uFrmConectarAPI.dfm</Transaction>
+    <Transaction>2020/11/22 14:33:56.000.970,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\uFrmConectarAPI.pas</Transaction>
     <Transaction>2020/11/22 15:09:19.000.665,C:\Projetos Delphi\ProjetoCM\uFrmConectarAPI.pas=</Transaction>
     <Transaction>2020/11/22 15:09:46.000.917,=C:\Projetos Delphi\ProjetoCM\view\uFrmConectarAPI.pas</Transaction>
     <Transaction>2020/11/22 15:36:28.000.198,=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
-    <Transaction>2020/11/22 15:37:29.000.529,C:\Projetos Delphi\ProjetoCM\dao\uConexaoAPI.pas=C:\Projetos Delphi\ProjetoCM\Unit1.pas</Transaction>
+    <Transaction>2020/11/22 15:37:29.000.529,C:\Projetos Delphi\ProjetoCM\Unit1.pas=C:\Projetos Delphi\ProjetoCM\dao\uConexaoAPI.pas</Transaction>
   </Transactions>
 </BorlandProject>
