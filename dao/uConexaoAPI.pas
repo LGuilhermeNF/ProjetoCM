@@ -112,6 +112,8 @@ begin
     end;
   finally
     FreeAndNil(JSONArray);
+    FreeAndNil(oPostModel);
+    FreeAndNil(oPostController);
   end;
 
 end;
