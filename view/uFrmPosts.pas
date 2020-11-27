@@ -317,6 +317,7 @@ end;
 
 procedure TfrmPosts.Listar;
 begin
+  FPostsController.CarregarTodosPosts(dsPesq);
   pgcPrincipal.ActivePage := tbPesq;
 end;
 
